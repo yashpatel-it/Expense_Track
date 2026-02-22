@@ -19,11 +19,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = React.useState<User | null>(null);
   const [loading, setLoading] = React.useState(true);
 
+  // helper that attempts to parse JSON but falls back to raw text on failure
+  const parseResponse = async (res: Response) => {
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      // not valid JSON (could be an HTML error page)
+      return { error: text };
+    }
+  };
+
   const checkUser = async () => {
     try {
       const res = await fetch('/api/auth/me');
       if (res.ok) {
-        const data = await res.json();
+        const data = await parseResponse(res);
         setUser(data.user);
       }
     } catch (err) {
@@ -43,11 +54,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     });
+
+    const data = await parseResponse(res);
     if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.error || 'Login failed');
+      throw new Error(data.error || data || 'Login failed');
     }
-    const data = await res.json();
     setUser(data.user);
   };
 
@@ -57,11 +68,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     });
+
+    const data = await parseResponse(res);
     if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.error || 'Signup failed');
+      throw new Error(data.error || data || 'Signup failed');
     }
-    const data = await res.json();
     setUser(data.user);
   };
 
