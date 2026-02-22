@@ -1,9 +1,10 @@
-# 💰 Expense Tracker Website
+Expense_Tracker..
 
 A modern and fully interactive Expense Tracker web application that helps users manage income and expenses efficiently.  
 Built with a clean UI, real-time updates, and responsive design.
 
----
+-<img width="1866" height="904" alt="image" src="https://github.com/user-attachments/assets/64552126-c972-477b-a5e1-578b5c9f11ec" />
+
 
 ## 🚀 Features
 
@@ -29,3 +30,10 @@ Built with a clean UI, real-time updates, and responsive design.
 ---
 
 ## 📂 Project Structure
+expense-tracker/
+│
+├── index.html
+├── style.css
+├── script.js
+├── assets/
+└── README.md
