@@ -35,7 +35,7 @@ db.exec(`
   );
 `);
 
-const app = express();
+export const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
@@ -137,24 +137,27 @@ app.delete('/api/transactions', authenticate, (req: any, res) => {
 });
 
 // Vite Integration
-async function startServer() {
-  if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' || process.env.VERCEL === undefined) {
+  // only apply vite middleware when running locally via "npm run dev" or similar
+  (async () => {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
     app.use(vite.middlewares);
-  } else {
-    app.use(express.static(path.join(__dirname, 'dist')));
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-    });
-  }
 
-  const PORT = 3000;
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })();
+} else {
+  // production on Vercel: static assets served by platform via routes
+  const staticDir = path.join(process.cwd(), 'dist');
+  app.use(express.static(staticDir));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(staticDir, 'index.html'));
   });
 }
 
-startServer();
+export default app;
