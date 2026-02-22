@@ -1,20 +1,31 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 💰 Expense Tracker Website
 
-# Run and deploy your AI Studio app
+A modern and fully interactive Expense Tracker web application that helps users manage income and expenses efficiently.  
+Built with a clean UI, real-time updates, and responsive design.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/79296df6-fe01-4273-9486-e14ce277c0f9
+## 🚀 Features
 
-## Run Locally
+- ➕ Add income and expense transactions
+- ✏️ Edit and delete transactions
+- 📊 Dashboard with total balance, income, and expense
+- 📈 Interactive charts (monthly & category-wise)
+- 🗂 Category-based tracking (Food, Travel, Bills, Shopping, etc.)
+- 🔎 Search and filter transactions
+- 🌙 Light / Dark mode toggle
+- 💾 Data stored in browser (localStorage)
+- 📱 Fully responsive design
 
-**Prerequisites:**  Node.js
+---
 
+## 🛠 Tech Stack
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- HTML
+- CSS / Tailwind CSS
+- JavaScript (or React)
+- Chart.js (for graphs)
+
+---
+
+## 📂 Project Structure
